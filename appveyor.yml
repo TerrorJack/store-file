@@ -1,0 +1,29 @@
+shallow_clone: true
+
+cache:
+  - "%APPDATA%\\stack"
+  - "%APPVEYOR_BUILD_FOLDER%\\.stack-work"
+
+environment:
+  matrix:
+    - RESOLVER: nightly
+      ARCH: x86_64
+
+    - RESOLVER: nightly
+      ARCH: i386
+
+install:
+  - cinst haskell-stack
+
+before_build:
+  - stack setup --resolver %RESOLVER% --arch %ARCH% > NUL
+
+build: off
+
+build_script:
+  - stack build -j1 --resolver %RESOLVER% --arch %ARCH% --haddock --no-haddock-deps --test --no-run-tests --bench --no-run-benchmarks
+
+test: off
+
+test_script:
+  - stack test --resolver %RESOLVER% --arch %ARCH%

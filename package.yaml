@@ -1,0 +1,57 @@
+name: store-file
+version: 0.0.1
+synopsis: Utilities for running Peek/Poke operations of store on files.
+category: Data
+maintainer: Shao Cheng <astrohavoc@gmail.com>
+copyright: (c) 2016 Shao Cheng
+license: BSD3
+github: TerrorJack/store-file
+
+extra-source-files:
+    - README.md
+
+ghc-options: -Wall
+
+default-extensions:
+    - FlexibleContexts
+
+dependencies:
+    - base >= 4.8 && < 4.10
+    - bytestring
+    - mmap
+    - store
+    - store-core
+    - transformers-base
+
+library:
+    source-dirs: src
+
+tests:
+    spec:
+        main: Spec.hs
+        ghc-options: -O2 -threaded -feager-blackholing -with-rtsopts=-N
+        source-dirs:
+            - test
+        dependencies:
+            - directory
+            - extra
+            - hspec
+            - QuickCheck
+            - quickcheck-instances
+            - store-file
+            - unordered-containers
+
+benchmarks:
+    bench:
+        main: Bench.hs
+        ghc-options: -O2 -threaded -feager-blackholing -with-rtsopts=-N
+        source-dirs:
+            - bench
+        dependencies:
+            - criterion
+            - deepseq
+            - directory
+            - QuickCheck
+            - quickcheck-instances
+            - store-file
+            - unordered-containers
